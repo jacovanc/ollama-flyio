@@ -1,0 +1,29 @@
+# fly.toml app configuration file generated for ollama-api on 2025-01-25T14:14:05+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'ollama-api'
+primary_region = 'lhr'
+
+[build]
+
+[env]
+  OLLAMA_BASE_URL = 'http://localhost:11434'
+
+[[mounts]]
+  source = 'models'
+  destination = '/root/.ollama'
+  initial_size = '100gb'
+
+[http_service]
+  internal_port = 11434
+  processes = ['app']
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 11434
+  ports = []
+
+[[vm]]
+  size = 'a100-40gb'
